@@ -20,6 +20,10 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>用于拍摄你的猫咪照片，生成可编辑的小猫造型。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>用于选择猫咪照片，生成可编辑的小猫造型。</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchScreen</key>

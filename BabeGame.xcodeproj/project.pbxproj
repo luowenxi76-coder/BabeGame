@@ -20,6 +20,7 @@
 		6CDBFF7AF72705437E00F5AF /* HomeRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58066C3919402E837D579FE /* HomeRoomView.swift */; };
 		740985208DEA556991F02A4F /* TripPlannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE5D06597B2486B1FBEF2399 /* TripPlannerView.swift */; };
 		8055F377FE98C08003CF7D73 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC657AB9E655F93A010331FA /* ContentView.swift */; };
+		8AA2EC161E2526A37A34F36C /* LowPolySceneKitViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A114D4F093980E34CA973DC /* LowPolySceneKitViews.swift */; };
 		93670B4573C8E88621DC6BB5 /* ImagePickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E062B4A48C5D4260C7AF2B2 /* ImagePickers.swift */; };
 		94C3D23AC7B74878ECEDB127 /* GameText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDEC926A25C160F713AE0B9 /* GameText.swift */; };
 		A7A0ACFE01222E541F6D9EC1 /* RootTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01CC144BB08E5E1FC8BE4E1E /* RootTabView.swift */; };
@@ -39,6 +40,7 @@
 		0FDEC926A25C160F713AE0B9 /* GameText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameText.swift; sourceTree = "<group>"; };
 		10A24102E66D77E259D45D12 /* AlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		4E062B4A48C5D4260C7AF2B2 /* ImagePickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickers.swift; sourceTree = "<group>"; };
+		5A114D4F093980E34CA973DC /* LowPolySceneKitViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowPolySceneKitViews.swift; sourceTree = "<group>"; };
 		5ED0D53FCB3B40DD00863E82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F662FFF2C2411D891ABB6B7 /* HomeDecorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDecorView.swift; sourceTree = "<group>"; };
 		637881AB59CC7515625BB4CF /* BabeGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabeGameApp.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		105AEB96616D804742E5E645 /* Rendering */ = {
 			isa = PBXGroup;
 			children = (
+				5A114D4F093980E34CA973DC /* LowPolySceneKitViews.swift */,
 				69AE30F25D8A735E37EBEB70 /* PixelCatView.swift */,
 			);
 			path = Rendering;
@@ -345,6 +348,7 @@
 				6CDBFF7AF72705437E00F5AF /* HomeRoomView.swift in Sources */,
 				93670B4573C8E88621DC6BB5 /* ImagePickers.swift in Sources */,
 				E63D1D91EB59100CEBB03526 /* KeychainStore.swift in Sources */,
+				8AA2EC161E2526A37A34F36C /* LowPolySceneKitViews.swift in Sources */,
 				B3BCC47F7FB26894DDD38677 /* PixelCatView.swift in Sources */,
 				A7A0ACFE01222E541F6D9EC1 /* RootTabView.swift in Sources */,
 				F06A66438F33C62B25366B22 /* SaveStore.swift in Sources */,

@@ -18,7 +18,17 @@ struct HomeDecorView: View {
                         )
 
                         CozyCard(accent: CozyPalette.mint) {
-                            HomeSceneView(cat: cat)
+                            InteractiveHomeScene3DView(cat: cat) { target in
+                                switch target {
+                                case .cat:
+                                    store.petCurrentCat()
+                                case .bowl:
+                                    store.feedCurrentCat()
+                                case .toy:
+                                    store.playWithCurrentCat()
+                                }
+                            }
+                            .frame(height: 340)
                             CurrencyBadge(coins: store.saveState.coins)
                         }
 

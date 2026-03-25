@@ -219,8 +219,29 @@ struct CatAppearance: Codable, Equatable {
     var earShape: EarShapePreset
     var bodyType: BodyTypePreset
     var tailShape: TailShapePreset
+    var headScale: Double
+    var earScale: Double
+    var eyeSpacing: Double
+    var tailLength: Double
     var accessoryID: String?
     var lastSeedNotes: String
+
+    enum CodingKeys: String, CodingKey {
+        case primaryFur
+        case secondaryFur
+        case pattern
+        case facePattern
+        case eyeColor
+        case earShape
+        case bodyType
+        case tailShape
+        case headScale
+        case earScale
+        case eyeSpacing
+        case tailLength
+        case accessoryID
+        case lastSeedNotes
+    }
 
     static let starter = CatAppearance(
         primaryFur: .cream,
@@ -231,6 +252,10 @@ struct CatAppearance: Codable, Equatable {
         earShape: .round,
         bodyType: .balanced,
         tailShape: .plume,
+        headScale: 1.0,
+        earScale: 1.0,
+        eyeSpacing: 1.0,
+        tailLength: 1.0,
         accessoryID: "bell-collar",
         lastSeedNotes: "温柔的小猫初始造型。"
     )
@@ -244,6 +269,10 @@ struct CatAppearance: Codable, Equatable {
         earShape: EarShapePreset,
         bodyType: BodyTypePreset,
         tailShape: TailShapePreset,
+        headScale: Double,
+        earScale: Double,
+        eyeSpacing: Double,
+        tailLength: Double,
         accessoryID: String?,
         lastSeedNotes: String
     ) {
@@ -255,6 +284,10 @@ struct CatAppearance: Codable, Equatable {
         self.earShape = earShape
         self.bodyType = bodyType
         self.tailShape = tailShape
+        self.headScale = headScale
+        self.earScale = earScale
+        self.eyeSpacing = eyeSpacing
+        self.tailLength = tailLength
         self.accessoryID = accessoryID
         self.lastSeedNotes = lastSeedNotes
     }
@@ -269,9 +302,49 @@ struct CatAppearance: Codable, Equatable {
             earShape: seed.earShape,
             bodyType: seed.bodyType,
             tailShape: seed.tailShape,
+            headScale: 1.0,
+            earScale: 1.0,
+            eyeSpacing: 1.0,
+            tailLength: 1.0,
             accessoryID: accessoryID,
             lastSeedNotes: seed.notes
         )
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        primaryFur = try container.decode(FurColorPreset.self, forKey: .primaryFur)
+        secondaryFur = try container.decode(FurColorPreset.self, forKey: .secondaryFur)
+        pattern = try container.decode(CatPatternPreset.self, forKey: .pattern)
+        facePattern = try container.decode(FacePatternPreset.self, forKey: .facePattern)
+        eyeColor = try container.decode(EyeColorPreset.self, forKey: .eyeColor)
+        earShape = try container.decode(EarShapePreset.self, forKey: .earShape)
+        bodyType = try container.decode(BodyTypePreset.self, forKey: .bodyType)
+        tailShape = try container.decode(TailShapePreset.self, forKey: .tailShape)
+        headScale = try container.decodeIfPresent(Double.self, forKey: .headScale) ?? 1.0
+        earScale = try container.decodeIfPresent(Double.self, forKey: .earScale) ?? 1.0
+        eyeSpacing = try container.decodeIfPresent(Double.self, forKey: .eyeSpacing) ?? 1.0
+        tailLength = try container.decodeIfPresent(Double.self, forKey: .tailLength) ?? 1.0
+        accessoryID = try container.decodeIfPresent(String.self, forKey: .accessoryID)
+        lastSeedNotes = try container.decode(String.self, forKey: .lastSeedNotes)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(primaryFur, forKey: .primaryFur)
+        try container.encode(secondaryFur, forKey: .secondaryFur)
+        try container.encode(pattern, forKey: .pattern)
+        try container.encode(facePattern, forKey: .facePattern)
+        try container.encode(eyeColor, forKey: .eyeColor)
+        try container.encode(earShape, forKey: .earShape)
+        try container.encode(bodyType, forKey: .bodyType)
+        try container.encode(tailShape, forKey: .tailShape)
+        try container.encode(headScale, forKey: .headScale)
+        try container.encode(earScale, forKey: .earScale)
+        try container.encode(eyeSpacing, forKey: .eyeSpacing)
+        try container.encode(tailLength, forKey: .tailLength)
+        try container.encodeIfPresent(accessoryID, forKey: .accessoryID)
+        try container.encode(lastSeedNotes, forKey: .lastSeedNotes)
     }
 }
 

@@ -30,7 +30,7 @@ struct CatStudioView: View {
                 CozySectionTitle(
                     eyebrow: existingCat == nil ? "Creator" : "Editor",
                     title: existingCat == nil ? "创建猫咪档案" : GameText.appearanceWorkshop,
-                    subtitle: "首版是轻捏猫系统。AI 负责提取基础参数，最后造型仍然由本地像素组件统一渲染。"
+                    subtitle: "现在的轻捏猫已经接上 Q 版低多边形 3D 预览。AI 负责提取基础参数，你也可以完全手动调整。"
                 )
 
                 CozyCard(accent: CozyPalette.peach) {
@@ -43,15 +43,19 @@ struct CatStudioView: View {
                     }
 
                     VStack(alignment: .leading, spacing: 14) {
-                        Text("造型预览")
+                        Text("3D 造型预览")
                             .font(.headline)
 
                         HStack(alignment: .center, spacing: 20) {
-                            PixelCatView(
+                            LowPolyCatPreview3DView(
                                 appearance: appearance,
                                 outfit: GameContent.outfit(id: existingCat?.wardrobeState.equippedOutfitID),
-                                accessory: GameContent.accessory(id: appearance.accessoryID),
-                                scale: 9
+                                accessory: GameContent.accessory(id: appearance.accessoryID)
+                            )
+                            .frame(width: 180, height: 180)
+                            .background(
+                                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                                    .fill(CozyPalette.paper.opacity(0.7))
                             )
 
                             if let referenceImageData, let uiImage = UIImage(data: referenceImageData) {
@@ -143,6 +147,10 @@ struct CatStudioView: View {
                     presetPicker("耳朵", selection: $appearance.earShape)
                     presetPicker("体型", selection: $appearance.bodyType)
                     presetPicker("尾巴", selection: $appearance.tailShape)
+                    adjustmentSlider("头脸比例", value: $appearance.headScale, range: 0.8...1.3)
+                    adjustmentSlider("耳朵大小", value: $appearance.earScale, range: 0.8...1.35)
+                    adjustmentSlider("眼睛间距", value: $appearance.eyeSpacing, range: 0.8...1.3)
+                    adjustmentSlider("尾巴长度", value: $appearance.tailLength, range: 0.75...1.4)
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text("配饰位")
@@ -214,6 +222,23 @@ struct CatStudioView: View {
                 }
             }
             .pickerStyle(.menu)
+        }
+    }
+
+    private func adjustmentSlider(_ label: String, value: Binding<Double>, range: ClosedRange<Double>) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text(label)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(CozyPalette.ink.opacity(0.76))
+                Spacer()
+                Text(String(format: "%.2f", value.wrappedValue))
+                    .font(.footnote.monospacedDigit())
+                    .foregroundStyle(CozyPalette.ink.opacity(0.54))
+            }
+
+            Slider(value: value, in: range)
+                .tint(CozyPalette.berry)
         }
     }
 

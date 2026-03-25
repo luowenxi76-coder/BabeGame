@@ -64,11 +64,21 @@ struct HomeRoomView: View {
 
     private func roomSceneCard(for cat: CatProfile) -> some View {
         CozyCard(accent: CozyPalette.accent(for: accentKey(for: cat.homeState.wallpaper))) {
-            Text("主房间")
+            Text("3D 主房间")
                 .font(.headline)
                 .foregroundStyle(CozyPalette.ink)
 
-            HomeSceneView(cat: cat)
+            InteractiveHomeScene3DView(cat: cat) { target in
+                switch target {
+                case .cat:
+                    store.petCurrentCat()
+                case .bowl:
+                    store.feedCurrentCat()
+                case .toy:
+                    store.playWithCurrentCat()
+                }
+            }
+            .frame(height: 340)
 
             HStack(spacing: 8) {
                 TagPill(label: cat.mood.title, accent: CozyPalette.peach)
@@ -79,12 +89,16 @@ struct HomeRoomView: View {
                     TagPill(label: "已归来", accent: CozyPalette.berry)
                 }
             }
+
+            Text("直接点 3D 场景里的猫咪、饭盆和毛线球就能互动。下面的按钮只是快捷入口。")
+                .font(.footnote)
+                .foregroundStyle(CozyPalette.ink.opacity(0.66))
         }
     }
 
     private func interactionCard(for cat: CatProfile) -> some View {
         CozyCard(accent: CozyPalette.mint) {
-            Text("陪它互动")
+            Text("快捷互动")
                 .font(.headline)
 
             HStack(spacing: 12) {
@@ -231,77 +245,6 @@ struct HomeRoomView: View {
         case .sunny: "peach"
         case .mint: "mint"
         case .berry: "berry"
-        }
-    }
-}
-
-struct HomeSceneView: View {
-    let cat: CatProfile
-
-    var body: some View {
-        ZStack {
-            CozyPalette.wallpaperBackground(for: cat.homeState.wallpaper)
-                .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-
-            VStack {
-                HStack {
-                    furnitureBubble(at: .wall)
-                    Spacer()
-                }
-                Spacer()
-                HStack {
-                    furnitureBubble(at: .bed)
-                    Spacer()
-                    furnitureBubble(at: .window)
-                }
-                .padding(.horizontal, 18)
-
-                HStack {
-                    Spacer()
-                    PixelCatView(
-                        appearance: cat.appearance,
-                        outfit: GameContent.outfit(id: cat.wardrobeState.equippedOutfitID),
-                        accessory: GameContent.accessory(id: cat.activeAccessoryID),
-                        scale: 8.5
-                    )
-                    Spacer()
-                }
-                .padding(.top, -18)
-
-                HStack {
-                    furnitureBubble(at: .rug)
-                    Spacer()
-                }
-                .padding(.horizontal, 18)
-            }
-            .padding(.vertical, 18)
-        }
-        .frame(height: 310)
-    }
-
-    @ViewBuilder
-    private func furnitureBubble(at slot: HomeSlot) -> some View {
-        if let furnitureID = cat.homeState.placements[slot.rawValue],
-           let furniture = GameContent.furniture(id: furnitureID) {
-            Text(furniture.title)
-                .font(.caption.weight(.bold))
-                .foregroundStyle(CozyPalette.ink)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(CozyPalette.accent(for: furniture.accentKey).opacity(0.84))
-                )
-        } else {
-            Text(slot.title)
-                .font(.caption)
-                .foregroundStyle(CozyPalette.ink.opacity(0.42))
-                .padding(.horizontal, 10)
-                .padding(.vertical, 8)
-                .background(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(Color.white.opacity(0.42))
-                )
         }
     }
 }

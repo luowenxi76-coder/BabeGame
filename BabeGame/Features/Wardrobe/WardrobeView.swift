@@ -18,11 +18,15 @@ struct WardrobeView: View {
 
                         CozyCard(accent: CozyPalette.peach) {
                             HStack {
-                                PixelCatView(
+                                LowPolyCatPreview3DView(
                                     appearance: cat.appearance,
                                     outfit: GameContent.outfit(id: cat.wardrobeState.equippedOutfitID),
-                                    accessory: GameContent.accessory(id: cat.activeAccessoryID),
-                                    scale: 10
+                                    accessory: GameContent.accessory(id: cat.activeAccessoryID)
+                                )
+                                .frame(width: 180, height: 180)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 24, style: .continuous)
+                                        .fill(CozyPalette.paper.opacity(0.76))
                                 )
                                 Spacer()
                                 CurrencyBadge(coins: store.saveState.coins)
